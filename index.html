@@ -1,0 +1,289 @@
+<DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"><DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            border: 2px solid #fff;
+            background-color: #000;
+            display: block;
+            margin: 20px 0;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+        }
+        .controls button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 18px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+        .controls button:active {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pacmanCanvas" width="400" height="400"></canvas>
+    <div class="controls">
+        <button id="leftButton">&larr;</button>
+        <div>
+            <button id="upButton">&uarr;</button><br>
+            <button id="downButton">&darr;</button>
+        </div>
+        <button id="rightButton">&rarr;</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('pacmanCanvas');
+        const ctx = canvas.getContext('2d');
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+
+        let pacman = {
+            x: 10,
+            y: 10,
+            dx: 0,
+            dy: 0,
+            size: gridSize / 2,
+            angle: 0.2,
+            speed: 1
+        };
+
+        let food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+
+        function drawPacman() {
+            ctx.fillStyle = 'yellow';
+            ctx.beginPath();
+            ctx.arc(
+                pacman.x * gridSize + pacman.size,
+                pacman.y * gridSize + pacman.size,
+                pacman.size,
+                Math.PI * pacman.angle,
+                Math.PI * (2 - pacman.angle)
+            );
+            ctx.lineTo(pacman.x * gridSize + pacman.size, pacman.y * gridSize + pacman.size);
+            ctx.fill();
+        }
+
+        function drawFood() {
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + pacman.size,
+                food.y * gridSize + pacman.size,
+                pacman.size / 2,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+        }
+
+        function updateGame() {
+            pacman.x += pacman.dx;
+            pacman.y += pacman.dy;
+
+            if (pacman.x < 0) pacman.x = tileCount - 1;
+            if (pacman.x >= tileCount) pacman.x = 0;
+            if (pacman.y < 0) pacman.y = tileCount - 1;
+            if (pacman.y >= tileCount) pacman.y = 0;
+
+            if (pacman.x === food.x && pacman.y === food.y) {
+                food.x = Math.floor(Math.random() * tileCount);
+                food.y = Math.floor(Math.random() * tileCount);
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPacman();
+            drawFood();
+        }
+
+        document.getElementById('leftButton').addEventListener('click', () => {
+            pacman.dx = -pacman.speed;
+            pacman.dy = 0;
+        });
+
+        document.getElementById('rightButton').addEventListener('click', () => {
+            pacman.dx = pacman.speed;
+            pacman.dy = 0;
+        });
+
+        document.getElementById('upButton').addEventListener('click', () => {
+            pacman.dx = 0;
+            pacman.dy = -pacman.speed;
+        });
+
+        document.getElementById('downButton').addEventListener('click', () => {
+            pacman.dx = 0;
+            pacman.dy = pacman.speed;
+        });
+
+        setInterval(updateGame, 100);
+    </script>
+</body>
+</html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+            background-color: #000;
+        }
+        canvas {
+            border: 2px solid #fff;
+            background-color: #000;
+            display: block;
+            margin: 20px 0;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+        }
+        .controls button {
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 18px;
+            color: white;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+        .controls button:active {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pacmanCanvas" width="400" height="400"></canvas>
+    <div class="controls">
+        <button id="leftButton">&larr;</button>
+        <div>
+            <button id="upButton">&uarr;</button><br>
+            <button id="downButton">&darr;</button>
+        </div>
+        <button id="rightButton">&rarr;</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('pacmanCanvas');
+        const ctx = canvas.getContext('2d');
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+
+        let pacman = {
+            x: 10,
+            y: 10,
+            dx: 0,
+            dy: 0,
+            size: gridSize / 2,
+            angle: 0.2,
+            speed: 1
+        };
+
+        let food = {
+            x: Math.floor(Math.random() * tileCount),
+            y: Math.floor(Math.random() * tileCount)
+        };
+
+        function drawPacman() {
+            ctx.fillStyle = 'yellow';
+            ctx.beginPath();
+            ctx.arc(
+                pacman.x * gridSize + pacman.size,
+                pacman.y * gridSize + pacman.size,
+                pacman.size,
+                Math.PI * pacman.angle,
+                Math.PI * (2 - pacman.angle)
+            );
+            ctx.lineTo(pacman.x * gridSize + pacman.size, pacman.y * gridSize + pacman.size);
+            ctx.fill();
+        }
+
+        function drawFood() {
+            ctx.fillStyle = 'red';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + pacman.size,
+                food.y * gridSize + pacman.size,
+                pacman.size / 2,
+                0,
+                Math.PI * 2
+            );
+            ctx.fill();
+        }
+
+        function updateGame() {
+            pacman.x += pacman.dx;
+            pacman.y += pacman.dy;
+
+            if (pacman.x < 0) pacman.x = tileCount - 1;
+            if (pacman.x >= tileCount) pacman.x = 0;
+            if (pacman.y < 0) pacman.y = tileCount - 1;
+            if (pacman.y >= tileCount) pacman.y = 0;
+
+            if (pacman.x === food.x && pacman.y === food.y) {
+                food.x = Math.floor(Math.random() * tileCount);
+                food.y = Math.floor(Math.random() * tileCount);
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPacman();
+            drawFood();
+        }
+
+        document.getElementById('leftButton').addEventListener('click', () => {
+            pacman.dx = -pacman.speed;
+            pacman.dy = 0;
+        });
+
+        document.getElementById('rightButton').addEventListener('click', () => {
+            pacman.dx = pacman.speed;
+            pacman.dy = 0;
+        });
+
+        document.getElementById('upButton').addEventListener('click', () => {
+            pacman.dx = 0;
+            pacman.dy = -pacman.speed;
+        });
+
+        document.getElementById('downButton').addEventListener('click', () => {
+            pacman.dx = 0;
+            pacman.dy = pacman.speed;
+        });
+
+        setInterval(updateGame, 100);
+    </script>
+</body>
+</html>
